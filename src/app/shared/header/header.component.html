@@ -1,15 +1,19 @@
 <header id="header" class="text-sm-center  d-flex flex-wrap justify-content-center p-3 border-bottom">
     <a routerLink="" id="btnInicio" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <i class="fa-solid fa-suitcase-medical text-danger fs-4" style="margin-right: 10px"></i>
-        <span class="fs-4">Gestor de Incapacidades</span>
+        <i class="fa-solid fa-laptop-medical text-primary fs-4 me-2"></i>
+        <span class="fs-4 me-2 fw-bold">Gestor de Incapacidades | </span>
+        <span class="fs-6 text-muted mt-1 fw-light">Mesa de Control</span>
     </a>
 
     <ul class="nav nav-pills">
         <li class="nav-item" routerLinkActive="fw-bold">
-            <a routerLink="/incapacidades/radicacion/informacion-incapacidad" class="nav-link text-muted">Información de Incapacidad</a>
+            <a routerLink="/incapacidades/radicacion/radicaciones" class="nav-link text-muted">Incapacidades Radicadas</a>
         </li>
         <li class="nav-item" routerLinkActive="fw-bold">
-            <a routerLink="/incapacidades/radicacion/visualizador-doc-incapacidad" class="nav-link text-muted">Visualizador de documentos</a>
+            <a routerLink="/incapacidades/radicacion/visualizador-doc-incapacidad" class="nav-link text-muted">
+                Ayuda
+                <i class="fa-solid fa-question"></i>
+            </a>
         </li>
     </ul>
 </header>

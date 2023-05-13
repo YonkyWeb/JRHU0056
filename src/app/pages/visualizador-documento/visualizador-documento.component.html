@@ -1,34 +1,102 @@
 <div class="container">
     <div class="row">
-        <h1 class="fw-light text-center mt-3">Incapacidad No.<strong class="fw-bold">1234</strong></h1>
-        <div class="col-12 col-lg-5">
+        <h1 class="fw-light text-center mt-5">Incapacidad No.<strong class="fw-bold">{{ incapacidad.numeroRadicado }}</strong></h1>
+        <div class="col-12">
+            <div class="px-2 px-sm-4 p-4 my-4 bg-light rounded-4 border">
+                <div class="container-fluid">
+                    <p class="fs-4 fw-bold mb-4">Información general</p>
+                    <form class="row g-3 needs-validation">
+                        <div class="col-12 col-md-6">
+                            <label for="nombreEmpleado" class="form-label">Nombre empleado</label>
+                            <input [value]="incapacidad.nombreDelEmpleado" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="noDocumento" class="form-label">Numero documento</label>
+                            <input [value]="incapacidad.numeroDocumentoEmpleado" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <label for="noDias" class="form-label">No. dias</label>
+                            <input [value]="incapacidad.numeroDeDias" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <label for="contrato" class="form-label">Contrato</label>
+                            <input [value]="incapacidad.numeroContrato" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <label for="contrato" class="form-label">Estado</label>
+                            <input [value]="incapacidad.estado" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <label for="empresaPrincipal" class="form-label">Empresa</label>
+                            <input [value]="incapacidad.nombreEmpresa" type="text" class="form-control form-control-sm" [disabled]="'true'" />
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <label for="fechaRadicacion" class="form-label">Fecha radicación </label>
+                            <input [value]="incapacidad.fechaRadicacion | date: 'dd/MM/yyyy'" type="text" class="form-control form-control-sm" [disabled]="'true'" />
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <label for="fechaInicio" class="form-label">Fecha inicio </label>
+                            <input [value]="incapacidad.fechaInicial | date: 'dd/MM/yyyy'" type="text" class="form-control form-control-sm" [disabled]="'true'" />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="tipoIncapacidad" class="form-label">Tipo incapacidad</label>
+                            <input [value]="incapacidad.tipoIncapacidad" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <label for="subtipoIncapacidad" class="form-label">Subtipo incapacidad</label>
+                            <input [value]="incapacidad.subTipoIncapacidad" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="col-12">
             <div class="p-sm-4 my-4 bg-light rounded-4 border">
                 <div class="container-fluid">
-                    <p class="fs-5">Documentos</p>
-                    <div class="alert alert-light border border-dark py-2 justify-content-between d-flex" role="alert">
-                        Historial clinico
-                        <span class="badge rounded-pill bg-success">Cargado</span>
+                    <p class="fs-4 fw-bold mb-4">Documentos</p>
+                    <div class="row">
+                        <div class="col">
+                            <div *ngFor="let d of documentos" class="alert alert-light border border-dark py-2 justify-content-between d-flex align-items-center"
+                                role="alert">
+                                <span>{{ d.documento.nombreDocumento }}</span>
+                                <div class="d-inline-flex">
+                                    <div>
+                                        <span class="badge rounded-pill bg-success">Cargado</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success rounded-pill ms-2">
+                                        <i class="fa-solid fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger rounded-pill ms-2">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary rounded-pill ms-2">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <button type="button" (click)="viewDocument(d)" class="btn btn-sm btn-light rounded-pill ms-2">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="alert alert-light border border-dark py-2 justify-content-between d-flex" role="alert">
-                        Certificado de incapacidad
-                        <span class="badge rounded-pill bg-success">Cargado</span>
-                    </div>
+
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">Concatenar documentos</label>
                     </div>
-                    <small class="text-muted"><strong class="fw-bold">2</strong> documentos</small>
+                    <small class="text-muted"><strong class="fw-bold">4</strong> documentos</small>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-7 px-lg-0">
+        <div class="col-12 px-lg-0" *ngIf="documentoAVer" #documentacion tabindex="1">
             <div class="p-sm-4 my-4 bg-light rounded-4 border">
                 <div class="container-fluid">
                     <p class="fs-5">Visualizador</p>
-                    <iframe src="https://primeng.org/installation" title="iframe de visualizacion de documentos"
-                        style="width: 100%; height: 90vh;"></iframe>
+                    <iframe [src]="sanarUrl(documentoAVer.ruta)" title="iframe de visualizacion de documentos" style="width: 100%; height: 90vh;"></iframe>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

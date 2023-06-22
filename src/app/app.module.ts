@@ -19,6 +19,9 @@ import { Error500Component } from './pages/error/error500/error500.component';
 import { UnknownErrorComponent } from './pages/error/unknown-error/unknown-error.component';
 import { ErrorAzComponent } from './pages/error/error-az/error-az.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutoFocusModule } from 'primeng/autofocus';
+import { IncapacidadesRadicadasCptComponent } from './pages/incapacidades-radicadas-cpt/incapacidades-radicadas-cpt.component';
 
 @NgModule({
   declarations: [
@@ -30,10 +33,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Error404Component,
     Error500Component,
     UnknownErrorComponent,
-    ErrorAzComponent
+    ErrorAzComponent,
+    IncapacidadesRadicadasCptComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -42,7 +48,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule,
     TableModule,
     ButtonModule,
-    TabMenuModule
+    TabMenuModule,
+    AutoFocusModule
   ],
   providers: [],
   bootstrap: [AppComponent]

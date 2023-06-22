@@ -5,13 +5,14 @@
         <li class="breadcrumb-item">
             <a routerLink="/incapacidades/radicacion/radicaciones" class="text-decoration-none">Inicio</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Incapacidades Radicadas</li>
+        <li class="breadcrumb-item active" aria-current="page">Incapacidades Radicadas | <strong>C</strong>apturada <strong>P</strong>ortal <strong>T</strong>rabajador</li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <p class="fs-1 text-center mt-5 mb-3 fw-light">Incapacidades Radicadas</p>
+            <p class="fs-1 text-center mt-5 fw-light">Incapacidades Radicadas</p>
+            <p class="fs-5 text-center mb-3 fw-bold">(Capturada desde el Portal del Trabajador)</p>
             <p class="text-muted">Aqui podras ver los documentos cargados de cada incapacidad radicada, viendo toda la
                 información necesaria.</p>
             <hr>
@@ -20,13 +21,13 @@
             <strong>{{ errorMessageWarning }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="col-12" *ngIf="isLoading">
+        <div class="col-12" *ngIf="isLoadingIncapacidades">
             <div class="h-100 p-3 bg-light border rounded-4 text-center align-items-center d-flex">
                 <strong class="option-tipo">El listado de radicaciones esta cargando....</strong>
                 <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
             </div>
         </div>
-        <div class="col-12" *ngIf="!isLoading">
+        <div class="col-12" *ngIf="!isLoadingIncapacidades">
             <p-table #dtIncapacidades dataKey="id" [value]="incapacidades" [paginator]="true" [rows]="10"
                 [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
                 currentPageReportTemplate="Pagina {first} - {last} de {totalRecords} registros"
@@ -73,6 +74,12 @@
                             <button (click)="viewDetailsIncapacidad(i, modalDetalles)" type="button"
                                 class="btn btn-info rounded-pill btn-sm">
                                 <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <button (click)="viewDocumentacion(i)" type="button"
+                                class="btn btn-warning rounded-pill btn-sm">
+                                <i class="fa-regular fa-folder-open"></i>
                             </button>
                         </td>
                         <td class="text-center">
@@ -172,10 +179,10 @@
     </div>
 </ng-template>
 
-<ng-template #modalLoading let-c="close" let-d="dismiss" draggable="false" *ngIf="isLoadingObservaciones">
+<ng-template #modalRadicacionLoading let-c="close" let-d="dismiss" draggable="false" *ngIf="isLoadingObservaciones">
     <div class="modal-content shadow">
         <div class="modal-body text-center py-4">
-            <p class="fs-4 mb-0 mt-2">Procesando solicitud...</p>
+            <p class="fs-4 mb-0 mt-2">Radicando incapacidad...</p>
             <img src="assets/gif/loading.gif" alt="loading gif" class="img-fluid">
             <div>
                 <span class="fw-light">Este proceso puede demorar varios minutos, por favor espera...</span>

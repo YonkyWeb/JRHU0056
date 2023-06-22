@@ -1,102 +1,339 @@
+<nav class="mt-4"
+    style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
+    aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="/incapacidades/radicacion/radicaciones" class="text-decoration-none">Inicio</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a routerLink="/incapacidades/radicacion/radicaciones-cpt" class="text-decoration-none">Incapacidades
+                Radicadas CPT</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Documentación</li>
+    </ol>
+</nav>
 <div class="container">
-    <div class="row">
-        <h1 class="fw-light text-center mt-5">Incapacidad No.<strong class="fw-bold">{{ incapacidad.numeroRadicado }}</strong></h1>
+    <div class="row pt-3">
+        <div class="bg-white sticky-top py-2">
+            <h1 class="fw-light text-center">Incapacidad No.<strong class="fw-bold">{{
+                    incapacidadSelected.numeroRadicado }}</strong></h1>
+            <hr>
+        </div>
         <div class="col-12">
-            <div class="px-2 px-sm-4 p-4 my-4 bg-light rounded-4 border">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="errorMessage">
+                <div [innerHTML]="errorMessage"></div>
+            </div>
+            <div class="px-2 px-sm-4 p-4 mb-4 bg-light rounded-4 border">
                 <div class="container-fluid">
                     <p class="fs-4 fw-bold mb-4">Información general</p>
                     <form class="row g-3 needs-validation">
                         <div class="col-12 col-md-6">
                             <label for="nombreEmpleado" class="form-label">Nombre empleado</label>
-                            <input [value]="incapacidad.nombreDelEmpleado" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                            <input [value]="incapacidadSelected.nombreDelEmpleado" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'">
                         </div>
                         <div class="col-12 col-md-4">
                             <label for="noDocumento" class="form-label">Numero documento</label>
-                            <input [value]="incapacidad.numeroDocumentoEmpleado" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                            <input [value]="incapacidadSelected.numeroDocumentoEmpleado" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'">
                         </div>
                         <div class="col-6 col-md-2">
                             <label for="noDias" class="form-label">No. dias</label>
-                            <input [value]="incapacidad.numeroDeDias" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                            <input [value]="incapacidadSelected.numeroDeDias" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'">
                         </div>
                         <div class="col-6 col-md-2">
                             <label for="contrato" class="form-label">Contrato</label>
-                            <input [value]="incapacidad.numeroContrato" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                            <input [value]="incapacidadSelected.numeroContrato" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'">
                         </div>
                         <div class="col-6 col-md-2">
                             <label for="contrato" class="form-label">Estado</label>
-                            <input [value]="incapacidad.estado" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                            <input [value]="incapacidadSelected.estado" type="text" class="form-control form-control-sm"
+                                [disabled]="'true'">
                         </div>
                         <div class="col-12 col-md-5">
                             <label for="empresaPrincipal" class="form-label">Empresa</label>
-                            <input [value]="incapacidad.nombreEmpresa" type="text" class="form-control form-control-sm" [disabled]="'true'" />
+                            <input [value]="incapacidadSelected.nombreEmpresa" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'" />
                         </div>
                         <div class="col-6 col-md-3">
-                            <label for="fechaRadicacion" class="form-label">Fecha radicación </label>
-                            <input [value]="incapacidad.fechaRadicacion | date: 'dd/MM/yyyy'" type="text" class="form-control form-control-sm" [disabled]="'true'" />
+                            <label for="fechaRadicacion" class="form-label">Fecha Radicación </label>
+                            <input [value]="incapacidadSelected.fechaRadicacion | date: 'dd/MM/yyyy'" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'" />
                         </div>
                         <div class="col-6 col-md-3">
-                            <label for="fechaInicio" class="form-label">Fecha inicio </label>
-                            <input [value]="incapacidad.fechaInicial | date: 'dd/MM/yyyy'" type="text" class="form-control form-control-sm" [disabled]="'true'" />
+                            <label for="fechaInicio" class="form-label">Fecha Inicio </label>
+                            <input [value]="incapacidadSelected.fechaInicial | date: 'dd/MM/yyyy'" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'" />
                         </div>
                         <div class="col-12 col-md-4">
-                            <label for="tipoIncapacidad" class="form-label">Tipo incapacidad</label>
-                            <input [value]="incapacidad.tipoIncapacidad" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                            <label for="tipoIncapacidad" class="form-label">Tipo Incapacidad</label>
+                            <input [value]="incapacidadSelected.tipoIncapacidad" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'">
                         </div>
                         <div class="col-12 col-md-5">
-                            <label for="subtipoIncapacidad" class="form-label">Subtipo incapacidad</label>
-                            <input [value]="incapacidad.subTipoIncapacidad" type="text" class="form-control form-control-sm" [disabled]="'true'">
+                            <label for="subtipoIncapacidad" class="form-label">Subtipo Incapacidad</label>
+                            <input [value]="sanarStringCoding(incapacidadSelected.subTipoIncapacidad)" type="text"
+                                class="form-control form-control-sm" [disabled]="'true'">
+                        </div>
+                        <div class="col-12 col-sm">
+                            <button (click)="devolverRadicacion(modalObservacion, modalLoading, modalError)"
+                                [disabled]="isLoadingDocumentos || isLoadingConcatDocs" type="button"
+                                class="btn btn-dark rounded-pill">
+                                Cambiar estado
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <hr>
-        <div class="col-12">
-            <div class="p-sm-4 my-4 bg-light rounded-4 border">
+        <div class="col-12" *ngIf="isLoadingDocumentos">
+            <div class="h-100 p-3 bg-light border rounded-4 text-center align-items-center d-flex">
+                <strong class="option-tipo">El listado de documentos esta cargando....</strong>
+                <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="!isLoadingDocumentos" id="documentos" [ngClass]="{'col-lg-4': isShowingDocument}">
+            <div class="p-sm-4 bg-light rounded-4 border">
                 <div class="container-fluid">
-                    <p class="fs-4 fw-bold mb-4">Documentos</p>
                     <div class="row">
-                        <div class="col">
-                            <div *ngFor="let d of documentos" class="alert alert-light border border-dark py-2 justify-content-between d-flex align-items-center"
+                        <p class="fs-4 fw-bold mb-4">Documentos</p>
+                        <div class="col px-0">
+                            <button type="button" (click)="openConcatDocsModal(modalConcat, modalError, modalLoading)"
+                                class="btn btn-light btn-sm rounded-pill fw-bold border border-dark mb-2">
+                                Concatenar documentos
+                                <i class="fa-solid fa-paperclip ms-2"></i>
+                            </button>
+                        </div>
+                        <div class="col-12 px-0">
+                            <div *ngFor="let d of documentosToUpdate"
+                                class="alert border p-2 justify-content-between d-flex align-items-center"
+                                [ngClass]="{'border-dark alert-light': d.estadoCarga === 'Cargado', 'alert-danger': d.estadoCarga=== 'No cargado'}"
                                 role="alert">
-                                <span>{{ d.documento.nombreDocumento }}</span>
-                                <div class="d-inline-flex">
-                                    <div>
-                                        <span class="badge rounded-pill bg-success">Cargado</span>
-                                    </div>
-                                    <button class="btn btn-sm btn-outline-success rounded-pill ms-2">
+                                <div class="col-6">
+                                    <small
+                                        [ngClass]="{'text-dark': d.estadoCarga === 'Cargado', 'text-danger fw-bold': d.estadoCarga === 'No cargado'}">
+                                        <span *ngIf="!isShowingDocument">{{ d.idDocumento }}</span>
+                                        <span *ngIf="d.idDocumento && !isShowingDocument"> - </span>
+                                        <span>{{ convertStringFirstCapitalLetter(d.documento) }}</span>
+                                    </small>
+                                </div>
+                                <div class="col d-flex justify-content-end" *ngIf="!isShowingDocument">
+                                    <span class="badge rounded-pill ms-1"
+                                        [ngClass]="{'text-bg-warning': d.estadoValidar === 'SIN_VALIDAR', 'text-bg-success': d.estadoValidar=== 'APROBADO', 'text-bg-danger': d.estadoValidar === 'RECHAZADO', 'text-bg-light': d.estadoCarga== 'No cargado'}">{{
+                                        d.estadoValidar }}</span>
+                                </div>
+                                <div class="col d-flex justify-content-start" *ngIf="!isShowingDocument">
+                                    <span class="badge rounded-pill ms-1"
+                                        [ngClass]="{'text-bg-success': d.estadoCarga === 'Cargado', 'text-bg-danger': d.estadoCarga === 'No cargado'}">{{
+                                        d.estadoCarga }}</span>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <button (click)="aprobarDocumento(d)" *ngIf="d.estadoValidar === 'SIN_VALIDAR'"
+                                        [disabled]="d.estadoCarga === 'No cargado'" placement="top" ngbTooltip="Aprobar"
+                                        type="button" class="btn btn-sm btn-outline-success rounded-pill ms-1">
                                         <i class="fa-solid fa-check"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-danger rounded-pill ms-2">
+                                    <button *ngIf="d.estadoValidar === 'RECHAZADO'" [ngbPopover]="d.observacion"
+                                        popoverTitle="Observación" [disabled]="d.estadoCarga === 'No cargado'"
+                                        placement="bottom" type="button"
+                                        class="btn btn-sm btn-outline-info rounded-pill ms-1">
+                                        <i class="fa-solid fa-list-check"></i>
+                                    </button>
+                                    <button (click)="openDevolverDocumentoModal(d, modalObservacionDocumento)"
+                                        *ngIf="d.estadoValidar === 'SIN_VALIDAR'"
+                                        [disabled]="d.estadoCarga === 'No cargado'" placement="top"
+                                        ngbTooltip="Rechazar" type="button"
+                                        class="btn btn-sm btn-outline-danger rounded-pill ms-1">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-secondary rounded-pill ms-2">
+                                    <button (click)="sinValidarDocumento(d)" *ngIf="d.estadoValidar!= 'SIN_VALIDAR'"
+                                        [disabled]="d.estadoCarga === 'No cargado'" placement="top"
+                                        ngbTooltip="Sin validar" type="button"
+                                        class="btn btn-sm btn-outline-secondary rounded-pill ms-1">
                                         <i class="fa-solid fa-minus"></i>
                                     </button>
-                                    <button type="button" (click)="viewDocument(d)" class="btn btn-sm btn-light rounded-pill ms-2">
+                                    <button placement="top" ngbTooltip="Ver documento" type="button"
+                                        [disabled]="d.estadoCarga === 'No cargado'" (click)="showDocument(d)"
+                                        class="btn btn-sm btn-light rounded-pill ms-1">
                                         <i class="fa-solid fa-eye"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <small class="text-muted float-start"> <strong>Documentos:</strong><br>
+                                Cargados <strong class="fw-bold">{{ findCountDocumentoPorEstado('Cargado') }}</strong> |
+                                No cargados <strong class="fw-bold">{{ findCountDocumentoPorEstado('No cargado')
+                                    }}</strong> |
+                                Total <strong class="fw-bold">{{ documentos.length }}</strong>
+                            </small>
+                        </div>
                     </div>
-
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Concatenar documentos</label>
-                    </div>
-                    <small class="text-muted"><strong class="fw-bold">4</strong> documentos</small>
                 </div>
             </div>
         </div>
-        <div class="col-12 px-lg-0" *ngIf="documentoAVer" #documentacion tabindex="1">
-            <div class="p-sm-4 my-4 bg-light rounded-4 border">
+        <div class="col-12 mt-3 mt-lg-0" [ngClass]="{'col-lg-8': isShowingDocument}" *ngIf="isLoadingDocumento">
+            <div>
+                <div class="h-100 p-3 bg-light border rounded-4 text-center align-items-center d-flex">
+                    <strong class="option-tipo">La visualizacion del documento esta cargando....</strong>
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="{'col-lg-8 mt-3 mt-lg-0': isShowingDocument}" class="col-12" tabindex="0"
+            *ngIf="isShowingDocument && !isLoadingDocumento">
+            <div class="p-sm-4 bg-light rounded-4 border">
                 <div class="container-fluid">
-                    <p class="fs-5">Visualizador</p>
-                    <iframe [src]="sanarUrl(documentoAVer.ruta)" title="iframe de visualizacion de documentos" style="width: 100%; height: 90vh;"></iframe>
+                    <div class="d-flex justify-content-between">
+                        <p class="fs-4 fw-bold mb-2">Visualizador de documento</p>
+                        <button type="button" class="btn-close" (click)="hideDocument()"></button>
+                    </div>
+                    <p class="mb-4">Documento: <span class="fw-light">{{
+                            convertStringFirstCapitalLetter(nombreDocumentoSelected) }}.</span> </p>
+                    <iframe [src]="sanarUrl(rutaDocumentoSelected)" title="iframe de visualizacion de documentos"
+                        style="width: 100%; height: 90vh;"></iframe>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+<ng-template #modalConcat let-c="close" let-d="dismiss">
+    <div class="modal-content shadow">
+        <div class="modal-header border-bottom-0">
+            <h1 class="modal-title fs-5">Concatenar documentos</h1>
+            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="col">
+                <p>Por favor seleccione los documentos a concatenar:</p>
+                <div *ngFor="let dc of documentosCargados"
+                    class="alert alert-light alert-dismissible border border-dark fade show p-2 align-items-center"
+                    role="alert">
+                    <div class="justify-content-between d-flex col-12">
+                        <label [for]="dc.documento">
+                            <span class="text-muted">{{ dc.idDocumento }} - {{
+                                convertStringFirstCapitalLetter(dc.documento) }}</span>
+                        </label>
+                        <input [(ngModel)]="dc.checked" type="checkbox" [id]="dc.documento" id="check"
+                            class="form-check-input form-check-input-lg border border-dark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer border-0">
+            <button type="button" class="btn btn-dark rounded-pill" (click)="concatAndDownload()">Contatenar y
+                descargar</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalLoading let-c="close" let-d="dismiss" draggable="false">
+    <div class="modal-content shadow">
+        <div class="modal-body text-center py-4">
+            <p class="fs-4 mb-0 mt-2">Procesando su solicitud...</p>
+            <img src="assets/gif/loading.gif" alt="loading gif" class="img-fluid">
+            <div>
+                <a (click)="cancelConcatDocs()"
+                    class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Cancelar</a>
+            </div>
+            <div>
+                <span class="fw-light">Este proceso puede demorar varios minutos, por favor espera...</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalError let-c="close" let-d="dismiss">
+    <div class="modal-content shadow">
+        <div class="modal-header border-bottom-0">
+            <h1 class="modal-title fs-5"></h1>
+            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body py-0 text-center">
+            <i class="fa-regular fa-circle-xmark text-danger fs-1"></i>
+            <p class="fs-4 mb-0">ERROR.</p>
+            <p class="mb-0">Ha ocurrido un error al radicar la incapacidad.</p>
+        </div>
+        <div class="modal-footer flex-column border-top-0">
+            <button type="button" class="btn btn-lg btn-secondary w-100 mx-0" (click)="d('Cross click')">Aceptar</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalObservacion let-c="close" let-d="dismiss">
+    <div class="modal-content shadow">
+        <div class="modal-header border-bottom-0">
+            <h1 class="modal-title fs-5">Registrar observación</h1>
+            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <form (ngSubmit)="devolverRadicacionObservacion()" [formGroup]="formObservacion">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="estado">Estado: </label>
+                            <select [(ngModel)]="estadoObservacion" name="estadoObservacion" id="estadoObservacion"
+                                class="form-select" formControlName="estadoObservacion"
+                                [ngClass]="{'is-invalid': fo['estadoObservacion'].errors && submittedObservacion}"
+                                required>
+                                <option *ngFor="let e of estadosObservacion" [value]="e.estado">{{ e.estado }}
+                                </option>
+                            </select>
+                            <div *ngIf="fo['estadoObservacion'].errors && submittedObservacion"
+                                class="invalid-feedback">
+                                <div *ngIf="fo['estadoObservacion'].errors['required']">Este campo es requerido.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observacion">Observación:</label>
+                            <textarea [(ngModel)]="observacion" formControlName="observacion"
+                                [ngClass]="{'is-invalid': fo['observacion'].errors && submittedObservacion}" required
+                                name="observacion" id="" cols="30" rows="5" class="form-control"
+                                style="resize: none;"></textarea>
+                            <div *ngIf="fo['observacion'].errors && submittedObservacion" class="invalid-feedback">
+                                <div *ngIf="fo['observacion'].errors['required']">Este campo es requerido.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="submit" class="btn btn-dark">Registrar observación</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #modalObservacionDocumento let-c="close" let-d="dismiss">
+    <div class="modal-content shadow">
+        <form (ngSubmit)="devolverDocumento()" [formGroup]="formObservacionDoc">
+            <div class="modal-header border-bottom-0">
+                <h1 class="modal-title fs-5">Registrar observación</h1>
+                <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <label for="observacion">Observación:</label>
+                        <textarea [(ngModel)]="observacionDocumentoRechazado" formControlName="observacionDoc"
+                            [ngClass]="{'is-invalid': fod['observacionDoc'].errors && submittedObservacionDoc}"
+                            required name="observacionDoc" id="observacionDoc" cols="30" rows="5" style="resize: none;"
+                            class="form-control"></textarea>
+
+                        <div *ngIf="fod['observacionDoc'].errors && submittedObservacionDoc" class="invalid-feedback">
+                            <div *ngIf="fod['observacionDoc'].errors['required']">Este campo es requerido.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="submit" class="btn btn-dark">Registrar observación</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
